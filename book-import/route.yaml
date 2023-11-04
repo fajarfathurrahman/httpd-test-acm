@@ -1,11 +1,11 @@
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: book-import
+  name: httpd-test-acm
   labels:
-    name: book-import
+    name: httpd-test-acm
 spec:
   path: "/"
   to:
     kind: Service
-    name: book-import
+    name: httpd-test-acm
