@@ -2,21 +2,21 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    name: book-import
-  name: book-import
+    name: httpd-test-acm
+  name: httpd-test-acm
 spec:
   replicas: 2
   selector:
     matchLabels:
-      name: book-import
+      name: httpd-test-acm
   template:
     metadata:
       labels:
-        name: book-import
+        name: httpd-test-acm
     spec:
       containers:
-      - image: quay.io/jpacker/hugo-nginx:latest
-        name: book-import
+      - image: docker.io/openshift/hello-openshift
+        name: httpd-test-acm
         ports:
         - containerPort: 8080
           name: http-server
