@@ -1,8 +1,8 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
-  name: policygroup-book-import
-  namespace: book-import
+  name: policygroup-httpd-test-acm
+  namespace: httpd-test-acm
   annotations:
     policy.open-cluster-management.io/categories: PR.PT Protective Technology
     policy.open-cluster-management.io/controls: PR.PT-3 Least Functionality
@@ -14,13 +14,13 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: policygroup-book-import-anyuid-scc
+          name: policygroup-httpd-test-acm-anyuid-scc
         spec:
           namespaceSelector:
             exclude:
               - kube-*
             include:
-              - book-import
+              - httpd-test-acm
           object-templates:
             - complianceType: musthave
               objectDefinition:
@@ -40,7 +40,7 @@ spec:
                   - 'system:cluster-admins'
                 kind: SecurityContextConstraints
                 metadata:
-                  name: book-import-scc
+                  name: httpd-test-acm-scc
                   annotations:
                     kubernetes.io/description: >-
                       restricted denies access to all host features and requires
@@ -58,7 +58,7 @@ spec:
                 supplementalGroups:
                   type: RunAsAny
                 users:
-                  - 'system:serviceaccount:book-import:default'
+                  - 'system:serviceaccount:httpd-test-acm:default'
                 volumes:
                   - configMap
                   - downwardAPI
@@ -73,13 +73,13 @@ spec:
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
-  name: book-import-scc
-  namespace: book-import
+  name: httpd-test-acm-scc
+  namespace: httpd-test-acm
 placementRef:
-  name: book-import-placement-0
+  name: httpd-test-acm-placement-0
   kind: PlacementRule
   apiGroup: apps.open-cluster-management.io
 subjects:
-- name: policygroup-book-import
+- name: policygroup-httpd-test-acm
   kind: Policy
   apiGroup: policy.open-cluster-management.io
